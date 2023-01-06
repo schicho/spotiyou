@@ -8,6 +8,11 @@ import (
 
 var TestClient *SpotifyClient
 
+const (
+	TestUserID     = "spotify"
+	TestPlaylistID = "37i9dQZF1DXcBWIGoYBM5M"
+)
+
 func TestMain(m *testing.M) {
 	var err error
 	TestClient, err = createTestSpotifyClient()
@@ -29,11 +34,8 @@ func createTestSpotifyClient() (*SpotifyClient, error) {
 	return NewSpotifyClient(clientID, clientSecret)
 }
 
-func TestGetUserPlaylists(t *testing.T) {
-
-	const userID = "spotify"
-
-	playlists, err := TestClient.apiGetUserPlaylists(userID)
+func TestApiGetUserPlaylists(t *testing.T) {
+	playlists, err := TestClient.apiGetUserPlaylists(TestUserID)
 	if err != nil {
 		t.Errorf("failed to get user playlists: %v", err)
 	}
@@ -47,11 +49,8 @@ func TestGetUserPlaylists(t *testing.T) {
 	}
 }
 
-func TestGetPlaylistTracks(t *testing.T) {
-
-	const playlistID = "37i9dQZF1DXcBWIGoYBM5M"
-
-	tracks, err := TestClient.apiGetPlaylistTracks(playlistID)
+func TestApiGetPlaylistTracks(t *testing.T) {
+	tracks, err := TestClient.apiGetPlaylistTracks(TestPlaylistID)
 	if err != nil {
 		t.Errorf("failed to get playlist tracks: %v", err)
 	}
