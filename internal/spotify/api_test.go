@@ -33,7 +33,7 @@ func TestGetUserPlaylists(t *testing.T) {
 
 	const userID = "spotify"
 
-	playlists, err := TestClient.getUserPlaylists(userID)
+	playlists, err := TestClient.apiGetUserPlaylists(userID)
 	if err != nil {
 		t.Errorf("failed to get user playlists: %v", err)
 	}
@@ -51,7 +51,7 @@ func TestGetPlaylistTracks(t *testing.T) {
 
 	const playlistID = "37i9dQZF1DXcBWIGoYBM5M"
 
-	tracks, err := TestClient.getPlaylistTracks(playlistID)
+	tracks, err := TestClient.apiGetPlaylistTracks(playlistID)
 	if err != nil {
 		t.Errorf("failed to get playlist tracks: %v", err)
 	}

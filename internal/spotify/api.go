@@ -6,7 +6,7 @@ import (
 	"github.com/zmb3/spotify/v2"
 )
 
-func (sc *SpotifyClient) getUserPlaylists(userID string) ([]spotify.SimplePlaylist, error) {
+func (sc *SpotifyClient) apiGetUserPlaylists(userID string) ([]spotify.SimplePlaylist, error) {
 	playlistPage, err := sc.client.GetPlaylistsForUser(context.Background(), userID)
 	if err != nil {
 		sc.logger.Printf("failed to get playlists for user %s: %v", userID, err)
@@ -16,7 +16,7 @@ func (sc *SpotifyClient) getUserPlaylists(userID string) ([]spotify.SimplePlayli
 	return playlistPage.Playlists, nil
 }
 
-func (sc *SpotifyClient) getPlaylistTracks(playlistID spotify.ID) ([]spotify.SimpleTrack, error) {
+func (sc *SpotifyClient) apiGetPlaylistTracks(playlistID spotify.ID) ([]spotify.SimpleTrack, error) {
 	playlistItemPage, err := sc.client.GetPlaylistItems(context.Background(), playlistID)
 	if err != nil {
 		sc.logger.Printf("failed to get playlist tracks for playlist %s: %v", playlistID, err)

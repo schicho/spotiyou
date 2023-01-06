@@ -5,7 +5,7 @@ import (
 )
 
 func (sc *SpotifyClient) getUserProtoPlaylists(userID string) ([]protoPlaylist, error) {
-	playlists, err := sc.getUserPlaylists(userID)
+	playlists, err := sc.apiGetUserPlaylists(userID)
 	if err != nil {
 		return nil, err
 	}
@@ -18,7 +18,7 @@ func (sc *SpotifyClient) getUserProtoPlaylists(userID string) ([]protoPlaylist, 
 }
 
 func (sc *SpotifyClient) getBasicPlaylist(pl protoPlaylist) (spotiyou.BasicPlaylist, error) {
-	tracks, err := sc.getPlaylistTracks(pl.SpotifyID)
+	tracks, err := sc.apiGetPlaylistTracks(pl.SpotifyID)
 	if err != nil {
 		return spotiyou.BasicPlaylist{}, err
 	}
