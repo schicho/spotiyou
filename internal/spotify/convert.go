@@ -5,12 +5,14 @@ import (
 	"github.com/zmb3/spotify/v2"
 )
 
+// toBasicArtist converts a spotify.SimpleArtist to a spotiyou.BasicArtist.
 func toBasicArtist(a spotify.SimpleArtist) spotiyou.BasicArtist {
 	return spotiyou.BasicArtist{
 		Name: a.Name,
 	}
 }
 
+// toBasicTrack converts a spotify.SimpleTrack to a spotiyou.BasicTrack.
 func toBasicTrack(t spotify.SimpleTrack) spotiyou.BasicTrack {
 	artists := make([]spotiyou.BasicArtist, 0, len(t.Artists))
 	for _, a := range t.Artists {
