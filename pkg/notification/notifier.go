@@ -1,9 +1,9 @@
 package spotiyou
 
-import "github.com/schicho/spotiyou/pkg/spotify"
+import "github.com/schicho/spotiyou/pkg/playlist"
 
 type Notification struct {
-	Playlists []spotify.BasicPlaylist
+	Playlists []playlist.BasicPlaylist
 }
 
 type Notifier interface {

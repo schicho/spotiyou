@@ -1,7 +1,7 @@
 package spotify
 
 import (
-	spotiyou "github.com/schicho/spotiyou/pkg/spotify"
+	spotiyou "github.com/schicho/spotiyou/pkg/playlist"
 	"github.com/zmb3/spotify/v2"
 )
 

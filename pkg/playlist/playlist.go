@@ -1,4 +1,4 @@
-package spotify
+package playlist
 
 // BasicArtist represents a simplified artist object.
 type BasicArtist struct {
