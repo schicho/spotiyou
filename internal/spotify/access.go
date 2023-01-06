@@ -36,7 +36,7 @@ func (sc *SpotifyClient) getBasicPlaylist(pl protoPlaylist) (spotiyou.BasicPlayl
 	}, nil
 }
 
-func (sc *SpotifyClient) GetUserBasicPlaylists(userID string) ([]spotiyou.BasicPlaylist, error) {
+func (sc *SpotifyClient) GetUserPlaylists(userID string) ([]spotiyou.BasicPlaylist, error) {
 	protoPlaylists, err := sc.getUserProtoPlaylists(userID)
 	if err != nil {
 		return nil, err
