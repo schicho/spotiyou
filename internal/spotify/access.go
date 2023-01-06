@@ -2,23 +2,11 @@ package spotify
 
 import (
 	spotiyou "github.com/schicho/spotiyou/pkg/spotify"
+	"github.com/zmb3/spotify/v2"
 )
 
-func (sc *SpotifyClient) getUserProtoPlaylists(userID string) ([]protoPlaylist, error) {
-	playlists, err := sc.apiGetUserPlaylists(userID)
-	if err != nil {
-		return nil, err
-	}
-
-	protoPlaylists := make([]protoPlaylist, 0, len(playlists))
-	for _, pl := range playlists {
-		protoPlaylists = append(protoPlaylists, toProtoPlaylist(pl))
-	}
-	return protoPlaylists, nil
-}
-
-func (sc *SpotifyClient) getBasicPlaylist(pl protoPlaylist) (spotiyou.BasicPlaylist, error) {
-	tracks, err := sc.apiGetPlaylistTracks(pl.SpotifyID)
+func (sc *SpotifyClient) getBasicPlaylist(pl spotify.SimplePlaylist) (spotiyou.BasicPlaylist, error) {
+	tracks, err := sc.apiGetPlaylistTracks(pl.ID)
 	if err != nil {
 		return spotiyou.BasicPlaylist{}, err
 	}
@@ -31,19 +19,19 @@ func (sc *SpotifyClient) getBasicPlaylist(pl protoPlaylist) (spotiyou.BasicPlayl
 	return spotiyou.BasicPlaylist{
 		Name:        pl.Name,
 		Description: pl.Description,
-		OwnerName:   pl.OwnerName,
+		OwnerName:   pl.Owner.DisplayName,
 		Tracks:      basicTracks,
 	}, nil
 }
 
 func (sc *SpotifyClient) GetUserPlaylists(userID string) ([]spotiyou.BasicPlaylist, error) {
-	protoPlaylists, err := sc.getUserProtoPlaylists(userID)
+	apiPlaylists, err := sc.apiGetUserPlaylists(userID)
 	if err != nil {
 		return nil, err
 	}
 
-	basicPlaylists := make([]spotiyou.BasicPlaylist, 0, len(protoPlaylists))
-	for _, pl := range protoPlaylists {
+	basicPlaylists := make([]spotiyou.BasicPlaylist, 0, len(apiPlaylists))
+	for _, pl := range apiPlaylists {
 		basicPlaylist, err := sc.getBasicPlaylist(pl)
 		if err != nil {
 			return nil, err
