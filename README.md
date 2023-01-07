@@ -3,6 +3,11 @@
 Spotiyou is a simple application that can notify you when your friends create a new playlist on Spotify.
 It uses the Spotify API to find new playlists and send you a notification.
 
+You may wonder why this project came into existence.
+One of my friends, who probably spends half of his life listening to music, would always immediately notice
+when I created a new playlist on Spotify and ask me about it in the next conversation.
+I, on the other hand, would never even notice when he created a new playlist. So, technology to the rescue!
+
 The notification is implemented via a Notifier Interface, so you can easily implement your own notification system.
 A simple example notifier to a Telegram chat is included.
 
