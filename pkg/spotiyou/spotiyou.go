@@ -64,3 +64,15 @@ func (s *Spotiyou) SpotUser(userID string) error {
 	}
 	return nil
 }
+
+// SpotAllUsers checks if all users have created new playlists.
+//
+// For each user, if new playlists are found, a notification is sent.
+func (s *Spotiyou) SpotAllUsers() error {
+	for userID := range s.store {
+		if err := s.SpotUser(userID); err != nil {
+			return err
+		}
+	}
+	return nil
+}
