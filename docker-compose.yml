@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  spotiyou:
+    environment:
+      - SPOTIFY_CLIENT_ID=your-spotify-client-id
+      - SPOTIFY_CLIENT_SECRET=your-spotify-client-secret
+      - TELEGRAM_TOKEN=your-telegram-bot-token
+      - TELEGRAM_CHAT_ID=your-telegram-chat-id
+    build: .
