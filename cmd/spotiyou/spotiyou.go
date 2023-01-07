@@ -28,7 +28,7 @@ func main() {
 	teleNotifier := telegram.NewTelegramNotifier(telegramToken, telegramChatID)
 	spotifyApi, err := api.New(spotifyClientID, spotifyClientSecret)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	spot := spotiyou.NewSpotiyou(spotifyApi, teleNotifier)
