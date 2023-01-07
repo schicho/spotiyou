@@ -26,6 +26,14 @@ func (sc *SpotifyClient) getBasicPlaylist(pl spotify.SimplePlaylist) (spotiyou.B
 	}, nil
 }
 
+// GetUserPlaylists returns all playlists of a user.
+//
+// The data is fetched from the Spotify API. It returns a slice of
+// BasicPlaylist which contains only the most important information
+// about the playlist and its tracks.
+//
+// The function may take a significant amount of time to complete.
+// Multiple parallel API calls are made to fetch all playlists and their tracks.
 func (sc *SpotifyClient) GetUserPlaylists(userID string) ([]spotiyou.BasicPlaylist, error) {
 	apiPlaylists, err := sc.apiGetUserPlaylists(userID)
 	if err != nil {
