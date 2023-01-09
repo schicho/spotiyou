@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
+	"net/http/cookiejar"
 
 	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
@@ -29,6 +30,14 @@ func NewSpotifyClient(ClientID, ClientSecret string) (*SpotifyClient, error) {
 		return nil, err
 	}
 	httpClient := spotifyauth.New().Client(context.Background(), token)
+
+	// have a cookiejar to re-authorize if needed
+	jar, err := cookiejar.New(nil)
+	if err != nil {
+		return nil, err
+	}
+	httpClient.Jar = jar
+
 	client := spotify.New(httpClient)
 
 	return &SpotifyClient{client: client, logger: newSpotifyLogger()}, nil
