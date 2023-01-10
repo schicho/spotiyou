@@ -10,6 +10,7 @@ import (
 func (sc *SpotifyClient) getBasicPlaylist(pl spotify.SimplePlaylist) (spotiyou.BasicPlaylist, error) {
 	tracks, err := sc.apiGetPlaylistTracks(pl.ID)
 	if err != nil {
+		sc.logger.Printf("failed to get playlist tracks for playlist %s %s: %v", pl.ID, pl.Name, err)
 		return spotiyou.BasicPlaylist{}, err
 	}
 
@@ -53,7 +54,6 @@ func (sc *SpotifyClient) GetUserPlaylists(userID string) ([]spotiyou.BasicPlayli
 			defer wg.Done()
 			basicPlaylist, err := sc.getBasicPlaylist(pl)
 			if err != nil {
-				sc.logger.Print(err)
 				return
 			}
 			downloadChan <- basicPlaylist
