@@ -18,6 +18,8 @@ type SpotifyClient struct {
 }
 
 func NewSpotifyClient(ClientID, ClientSecret string) (*SpotifyClient, error) {
+	l := newSpotifyLogger()
+
 	config := clientcredentials.Config{
 		ClientID:     ClientID,
 		ClientSecret: ClientSecret,
@@ -26,12 +28,14 @@ func NewSpotifyClient(ClientID, ClientSecret string) (*SpotifyClient, error) {
 
 	token, err := config.Token(context.Background())
 	if err != nil {
+		l.Println("error retrieving initial token:", err)
 		return nil, err
 	}
 	httpClient := spotifyauth.New().Client(context.Background(), token)
 	client := spotify.New(httpClient)
 
-	return &SpotifyClient{client: client, logger: newSpotifyLogger()}, nil
+	l.Println("successfully initialized spotify client")
+	return &SpotifyClient{client: client, logger: l}, nil
 }
 
 func newSpotifyLogger() *log.Logger {
