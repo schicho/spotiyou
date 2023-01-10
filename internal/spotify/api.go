@@ -6,8 +6,15 @@ import (
 	"github.com/zmb3/spotify/v2"
 )
 
+const (
+	// playlistRetrievalLimit is the maximum number of playlists retrieved per user.
+	playlistRetrievalLimit = 50
+	// tracksRetrievalLimit is the maximum number of tracks retrieved per playlist.
+	tracksRetrievalLimit = 5
+)
+
 func (sc *SpotifyClient) apiGetUserPlaylists(userID string) ([]spotify.SimplePlaylist, error) {
-	playlistPage, err := sc.client.GetPlaylistsForUser(context.Background(), userID)
+	playlistPage, err := sc.client.GetPlaylistsForUser(context.Background(), userID, spotify.Limit(playlistRetrievalLimit))
 	if err != nil {
 		sc.logger.Printf("failed to get playlists for user %s: %v", userID, err)
 		return nil, ErrRetrievalFailed
@@ -17,7 +24,7 @@ func (sc *SpotifyClient) apiGetUserPlaylists(userID string) ([]spotify.SimplePla
 }
 
 func (sc *SpotifyClient) apiGetPlaylistTracks(playlistID spotify.ID) ([]spotify.SimpleTrack, error) {
-	playlistItemPage, err := sc.client.GetPlaylistItems(context.Background(), playlistID)
+	playlistItemPage, err := sc.client.GetPlaylistItems(context.Background(), playlistID, spotify.Limit(tracksRetrievalLimit))
 	if err != nil {
 		sc.logger.Printf("failed to get playlist tracks for playlist %s: %v", playlistID, err)
 		return nil, ErrRetrievalFailed
