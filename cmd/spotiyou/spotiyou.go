@@ -37,6 +37,7 @@ func main() {
 
 	ticker := time.NewTicker(3 * time.Minute)
 	for range ticker.C {
+		log.Println("spotting users")
 		err := spot.SpotAllUsers()
 		if err != nil {
 			log.Println(err)
