@@ -16,7 +16,7 @@ func TestGetUserPlaylists(t *testing.T) {
 			if playlist.Name == "" {
 				t.Errorf("playlist name is empty")
 			}
-			if i < 0 {
+			if i < 3 {
 				t.Logf("playlist: %s", playlist.Name)
 			}
 		}
@@ -27,7 +27,7 @@ func TestGetUserPlaylists(t *testing.T) {
 			if playlist.Description == "" {
 				t.Errorf("playlist description is empty")
 			}
-			if i < 0 {
+			if i < 3 {
 				t.Logf("playlist: %s", playlist.Description)
 			}
 		}
@@ -38,8 +38,31 @@ func TestGetUserPlaylists(t *testing.T) {
 			if len(playlist.Tracks) == 0 {
 				t.Errorf("playlist has no songs")
 			}
-			if i < 0 {
+			if i < 3 {
 				t.Logf("playlist: %s", playlist.Tracks)
+			}
+		}
+	})
+
+	t.Run("playlist image", func(t *testing.T) {
+		for i, playlist := range playlists {
+			if i < 3 {
+				if playlist.Image.Len() == 0 {
+					t.Logf("playlist %s has no image", playlist.Name)
+				} else {
+					t.Logf("playlist %s has image of size %v bytes", playlist.Name, playlist.Image.Len())
+				}
+			}
+		}
+	})
+
+	t.Run("playlist URL", func(t *testing.T) {
+		for i, playlist := range playlists {
+			if playlist.URL == "" {
+				t.Errorf("playlist URL is empty")
+			}
+			if i < 3 {
+				t.Logf("playlist: %s", playlist.URL)
 			}
 		}
 	})

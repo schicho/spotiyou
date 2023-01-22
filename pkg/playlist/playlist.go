@@ -1,5 +1,9 @@
 package playlist
 
+import (
+	"bytes"
+)
+
 // BasicArtist represents a simplified artist object.
 type BasicArtist struct {
 	Name string
@@ -17,4 +21,9 @@ type BasicPlaylist struct {
 	Description string
 	OwnerName   string
 	Tracks      []BasicTrack
+	// The image of the playlist is provided as a byte buffer.
+	// May be empty if no image is available.
+	Image *bytes.Buffer
+	// URL which links to the public playlist on Spotify
+	URL string
 }

@@ -1,11 +1,14 @@
 package spotify
 
 import (
+	"bytes"
 	"sync"
 
 	spotiyou "github.com/schicho/spotiyou/pkg/playlist"
 	"github.com/zmb3/spotify/v2"
 )
+
+const openSpotifyPlaylistBaseURL = "https://open.spotify.com/playlist/"
 
 func (sc *SpotifyClient) getBasicPlaylist(pl spotify.SimplePlaylist) (spotiyou.BasicPlaylist, error) {
 	tracks, err := sc.apiGetPlaylistTracks(pl.ID)
@@ -19,11 +22,18 @@ func (sc *SpotifyClient) getBasicPlaylist(pl spotify.SimplePlaylist) (spotiyou.B
 		basicTracks = append(basicTracks, toBasicTrack(t))
 	}
 
+	imgBuffer := &bytes.Buffer{}
+	if pl.Images != nil && len(pl.Images) > 0 {
+		pl.Images[0].Download(imgBuffer)
+	}
+
 	return spotiyou.BasicPlaylist{
 		Name:        pl.Name,
 		Description: pl.Description,
 		OwnerName:   pl.Owner.DisplayName,
 		Tracks:      basicTracks,
+		Image:       imgBuffer,
+		URL:         openSpotifyPlaylistBaseURL + pl.ID.String(),
 	}, nil
 }
 
