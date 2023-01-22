@@ -61,6 +61,9 @@ func (t *TelegramNotifier) buildMessage(notification notification.Notification) 
 	for _, p := range notification.Playlists {
 		t.sb.WriteString("\n")
 		t.sb.WriteString(p.Name)
+		t.sb.WriteString(":\n")
+		t.sb.WriteString(p.URL)
+		t.sb.WriteString("\n")
 	}
 
 	return t.sb.String()
